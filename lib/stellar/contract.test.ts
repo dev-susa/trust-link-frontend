@@ -276,7 +276,7 @@ describe("lib/stellar/contract.ts", () => {
     });
 
     it("rejects non-array arguments", () => {
-      const result = validateContractMethodCall("transfer", "not-an-array" as unknown as unknown[]);
+      const result = validateContractMethodCall("transfer", "not-an-array" as unknown as ContractArg[]);
       expect(result.valid).toBe(false);
       expect(result.error).toContain("Arguments must be an array");
     });

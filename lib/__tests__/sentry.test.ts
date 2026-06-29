@@ -42,12 +42,12 @@ describe("Sentry Error Monitoring", () => {
       if (beforeSend) {
         // User Rejection: Ignored (returns null)
         const rejectedHint = { originalException: new Error("User rejected the request") };
-        expect(beforeSend({} as Record<string, unknown>, rejectedHint as Record<string, unknown>)).toBeNull();
+        expect(beforeSend({} as unknown as Sentry.Event, rejectedHint as unknown as Sentry.EventHint)).toBeNull();
         
         // Unexpected Error: Captured (returns event)
         const unexpectedHint = { originalException: new Error("Network timeout") };
-        const mockEvent = { event_id: "test" };
-        expect(beforeSend(mockEvent, unexpectedHint as Record<string, unknown>)).toBe(mockEvent);
+        const mockEvent = { event_id: "test" } as unknown as Sentry.Event;
+        expect(beforeSend(mockEvent, unexpectedHint as unknown as Sentry.EventHint)).toBe(mockEvent);
       }
     });
   });
